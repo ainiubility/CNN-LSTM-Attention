@@ -1,0 +1,37 @@
+{
+  "python.analysis.packageIndexDepths": [
+    {
+      "name": "keras",
+      "depth": 8
+    },
+    {
+      "name": "tensorflow",
+      "depth": 8
+    },
+    {
+      "name": "sklearn",
+      "depth": 5
+    },
+    {
+      "name": "matplotlib",
+      "depth": 5
+    },
+    {
+      "name": "scipy",
+      "depth": 5
+    },
+
+    {
+      "name": "django",
+      "depth": 2
+    },
+    {
+      "name": "flask",
+      "depth": 2
+    },
+    {
+      "name": "fastapi",
+      "depth": 2
+    }
+  ]
+}
