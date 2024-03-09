@@ -47,3 +47,5 @@ setuptools-scm==8.0.4
 six==1.15.0
 tensorboard==2.10.1
 tensorboard-data-server==0.6.1
+
+tensorflow~=2.15.0.post1

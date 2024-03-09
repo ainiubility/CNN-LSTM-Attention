@@ -33,5 +33,13 @@
       "name": "fastapi",
       "depth": 2
     }
-  ]
+  ],
+  "python.analysis.downloadChannel": "beta",
+  "python.analysis.diagnosticSeverityOverrides": {},
+  "python.defaultInterpreterPath": "$HOME/anaconda3/envs/py310/bin/python3",
+  "python.globalModuleInstallation": true,
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  "python.createEnvironment.trigger": "prompt",
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": true
 }
