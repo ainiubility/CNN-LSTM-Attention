@@ -2,36 +2,36 @@
   "python.analysis.packageIndexDepths": [
     {
       "name": "keras",
-      "depth": 8
+      "depth": 80
     },
     {
       "name": "tensorflow",
-      "depth": 8
+      "depth": 80
     },
     {
       "name": "sklearn",
-      "depth": 5
+      "depth": 50
     },
     {
       "name": "matplotlib",
-      "depth": 5
+      "depth": 50
     },
     {
       "name": "scipy",
-      "depth": 5
+      "depth": 50
     },
 
     {
       "name": "django",
-      "depth": 2
+      "depth": 20
     },
     {
       "name": "flask",
-      "depth": 2
+      "depth": 20
     },
     {
       "name": "fastapi",
-      "depth": 2
+      "depth": 20
     }
   ],
   "python.analysis.downloadChannel": "beta",
@@ -41,5 +41,41 @@
   "python.terminal.activateEnvInCurrentTerminal": true,
   "python.createEnvironment.trigger": "prompt",
   "python.testing.pytestEnabled": true,
-  "python.testing.unittestEnabled": true
+  "python.testing.unittestEnabled": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.inlayHints.pytestParameters": true,
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.enableSyncServer": true,
+  "python.analysis.completeFunctionParens": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.autoFormatStrings": true,
+  "python.analysis.addImport.exactMatchOnly": true,
+  "python.analysis.inlayHints.callArgumentNames": "all",
+  "python.analysis.typeCheckingMode": "standard",
+  "python.analysis.useLibraryCodeForTypes": true,
+  "python.analysis.userFileIndexingLimit": -1,
+  "dotnet-interactive.kernelTransportArgs": [
+    "dotnet-interactive",
+    "{dotnet_path}",
+    "tool",
+    "run",
+
+    "--",
+    "[vscode]",
+    "stdio",
+    "--working-dir",
+    "{working_dir}"
+  ],
+  "dotnet-interactive.notebookParserArgs": [
+    "dotnet-interactive",
+    "{dotnet_path}",
+    "tool",
+    "run",
+
+    "--",
+    "notebook-parser"
+  ],
+  "polyglot-notebook.defaultNotebookExtension": ".ipynb",
+  "polyglot-notebook.defaultNotebookLanguage": "csharp",
+  "polyglot-notebook.suppressPromptToSaveDefaults": true
 }
