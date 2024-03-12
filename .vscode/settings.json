@@ -51,7 +51,7 @@
   "python.analysis.autoFormatStrings": true,
   "python.analysis.addImport.exactMatchOnly": true,
   "python.analysis.inlayHints.callArgumentNames": "all",
-  "python.analysis.typeCheckingMode": "standard",
+  "python.analysis.typeCheckingMode": "basic",
   "python.analysis.useLibraryCodeForTypes": true,
   "python.analysis.userFileIndexingLimit": -1,
   "dotnet-interactive.kernelTransportArgs": [
@@ -77,5 +77,10 @@
   ],
   "polyglot-notebook.defaultNotebookExtension": ".ipynb",
   "polyglot-notebook.defaultNotebookLanguage": "csharp",
-  "polyglot-notebook.suppressPromptToSaveDefaults": true
+  "polyglot-notebook.suppressPromptToSaveDefaults": true,
+  "python.languageServer": "Pylance",
+  "local-history.daysLimit": 7,
+  "local-history.absolute": false,
+  "local-history.enabled": 2,
+  "local-history.saveDelay": 30
 }
