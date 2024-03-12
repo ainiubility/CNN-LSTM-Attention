@@ -43,7 +43,7 @@ if _module_dir:
 setattr(_current_module, "keras", _keras)
 ```
 
-## 安装GPU支持的tensorflow 
+## 安装GPU支持的tensorflow
 
 1. 安装 CUDA Toolkit
 
@@ -53,20 +53,20 @@ https://developer.nvidia.com/cuda-downloads
 https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_network
 
 ```
- 
+
 
 ### 3.9.4. Common Installation Instructions for WSL[](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#common-installation-instructions-for-wsl#common-installation-instructions-for-wsl "Permalink to this headline")
 
 These instructions apply to both local and network installation for WSL.
 
 1.  **Update the Apt repository cache:**
-    
+
     ```
     sudo apt-get update
     ```
 
 2.  **Install CUDA SDK:**
-    
+
     ```
     sudo apt-get install cuda-toolkit
     ```
@@ -76,26 +76,32 @@ These instructions apply to both local and network installation for WSL.
 
 4. other ways to install CUDA on WSL-Ubuntu
 
-```bash
-cd $HOME
-wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/cuda_12.4.0_550.54.14_linux.run
-sudo sh cuda_12.4.0_550.54.14_linux.run
-```
+    ```bash
+    cd $HOME
+    wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/cuda_12.4.0_550.54.14_linux.run
+    sudo sh cuda_12.4.0_550.54.14_linux.run
+    ```
+5. To perform a basic install of all CUDA Toolkit components using Conda, run the following command:
 
-5. instal tensorflow[and-cuda]
-```bash
-pip install --upgrade pip
-
-# For GPU users
-pip install tensorflow[and-cuda]
-# For CPU users
-#pip install tensorflow
+    ```bash
+    conda install cuda -c nvidia
+    ```
 
 
-python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+## instal tensorflow[and-cuda]
+    ```bash
+    pip install --upgrade pip
 
-python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+    # For GPU users
+    pip install tensorflow[and-cuda]
+    # For CPU users
+    #pip install tensorflow
 
-```
+
+    python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+
+    python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+
+    ```
 
 

@@ -36,7 +36,7 @@
   ],
   "python.analysis.downloadChannel": "beta",
   "python.analysis.diagnosticSeverityOverrides": {},
-  "python.defaultInterpreterPath": "$HOME/anaconda3/envs/py310/bin/python3",
+  "python.defaultInterpreterPath": "",
   "python.globalModuleInstallation": true,
   "python.terminal.activateEnvInCurrentTerminal": true,
   "python.createEnvironment.trigger": "prompt",
