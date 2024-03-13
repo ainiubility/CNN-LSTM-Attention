@@ -47,7 +47,7 @@ setattr(_current_module, "keras", _keras)
 
 1. 安装 CUDA Toolkit
 
-```
+```bash
 https://developer.nvidia.com/cuda-downloads
 
 https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_network
@@ -61,47 +61,47 @@ These instructions apply to both local and network installation for WSL.
 
 1.  **Update the Apt repository cache:**
 
-    ```
-    sudo apt-get update
-    ```
+```bash
+sudo apt-get update
+```
 
 2.  **Install CUDA SDK:**
 
-    ```
-    sudo apt-get install cuda-toolkit
-    ```
+```bash
+sudo apt-get install cuda-toolkit=12.3.* # 指定tf都已经的版本，去tf release中查询
+```
 
-3.  Perform the [post-installation actions.](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#common-installation-instructions-for-wslindex.html#post-installation-actions)
+3.  **【Must do】** Perform the [post-installation actions.](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions)
 
 
 4. other ways to install CUDA on WSL-Ubuntu
 
-    ```bash
-    cd $HOME
-    wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/cuda_12.4.0_550.54.14_linux.run
-    sudo sh cuda_12.4.0_550.54.14_linux.run
-    ```
+```bash
+cd $HOME
+wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/cuda_12.4.0_550.54.14_linux.run
+sudo sh cuda_12.4.0_550.54.14_linux.run
+```
 5. To perform a basic install of all CUDA Toolkit components using Conda, run the following command:
 
-    ```bash
-    conda install cuda -c nvidia
-    ```
+```bash
+conda install cuda -c nvidia
+```
 
 
 ## instal tensorflow[and-cuda]
-    ```bash
-    pip install --upgrade pip
+安装TF
 
-    # For GPU users
-    pip install tensorflow[and-cuda]
-    # For CPU users
-    #pip install tensorflow
+```python
+pip install --upgrade pip
 
+# For GPU users
+pip install tensorflow[and-cuda]
+# For CPU users
+#pip install tensorflow
+python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 
-    python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 
-    python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
-
-    ```
+```
 
 
