@@ -1,94 +1,88 @@
-from math import sqrt
+def windowed_dataset(dataset, window_size=5, shift=1, stride=1):
+    windows = dataset.window(window_size, shift=shift, stride=stride)
 
-from keras.layers import LSTM, Dense
-from keras.models import Sequential
-from matplotlib import pyplot
-from numpy import concatenate
-from pandas import DataFrame, concat, read_csv
-from sklearn.metrics import mean_squared_error
-from sklearn.preprocessing import LabelEncoder, MinMaxScaler
-
-
-# convert series to supervised learning
-def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
-    n_vars = 1 if type(data) is list else data.shape[1]
-    df = DataFrame(data)
-    cols, names = list(), list()
-    # input sequence (t-n, ... t-1)
-    for i in range(n_in, 0, -1):
-        cols.append(df.shift(i))
-        names += [('var%d(t-%d)' % (j+1, i)) for j in range(n_vars)]
-    # forecast sequence (t, t+1, ... t+n)
-    for i in range(0, n_out):
-        cols.append(df.shift(-i))
-        if i == 0:
-            names += [('var%d(t)' % (j+1)) for j in range(n_vars)]
+    def sub_to_batch(sub):
+        # 如果特征和标签在同一张量中，需先分离
+        if isinstance(sub, tuple):
+            features, labels = sub
         else:
-            names += [('var%d(t+%d)' % (j+1, i)) for j in range(n_vars)]
-    # put it all together
-    agg = concat(cols, axis=1)
-    agg.columns = names
-    # drop rows with NaN values
-    if dropnan:
-        agg.dropna(inplace=True)
-    return agg
+            features = sub  # 假设sub本身就是特征
+            labels = None  # 或者相应地获取标签
 
-# load dataset
-dataset = read_csv('PRSA_data_2010.1.1-2014.12.31.csv', header=1, index_col=0)
-values = dataset.values
-# integer encode direction
-encoder = LabelEncoder()
-values[:,4] = encoder.fit_transform(values[:,4])
-# ensure all data is float
-values = values.astype('float32')
-# normalize features
-scaler = MinMaxScaler(feature_range=(0, 1))
-scaled = scaler.fit_transform(values)
-# frame as supervised learning
-reframed = series_to_supervised(scaled, 1, 1)
-# drop columns we don't want to predict
-reframed.drop(reframed.columns[[9,10,11,12,13,14,15]], axis=1, inplace=True)
-print(reframed.head())
+        features_batches = features.batch(window_size, drop_remainder=True)
 
-# split into train and test sets
-values = reframed.values
-n_train_hours = 365 * 24
-train = values[:n_train_hours, :]
-test = values[n_train_hours:, :]
-# split into input and outputs
-train_X, train_y = train[:, :-1], train[:, -1]
-test_X, test_y = test[:, :-1], test[:, -1]
-# reshape input to be 3D [samples, timesteps, features]
-train_X = train_X.reshape((train_X.shape[0], 1, train_X.shape[1]))
-test_X = test_X.reshape((test_X.shape[0], 1, test_X.shape[1]))
-print(train_X.shape, train_y.shape, test_X.shape, test_y.shape)
+        # 如果有多个标签，也对它们进行批处理
+        if labels is not None:
+            labels_batches = labels.batch(window_size, drop_remainder=True)
 
-# design network
-model = Sequential()
-model.add(LSTM(50, input_shape=(train_X.shape[1], train_X.shape[2])))
-model.add(Dense(1))
-model.compile(loss='mae', optimizer='adam')
-# fit network
-history = model.fit(train_X, train_y, epochs=50, batch_size=72, validation_data=(test_X, test_y), verbose=2, shuffle=False)
-# plot history
-pyplot.plot(history.history['loss'], label='train')
-pyplot.plot(history.history['val_loss'], label='test')
-pyplot.legend()
-pyplot.show()
+            # 返回特征和标签的批处理结果作为元组
+            return tf.data.Dataset.zip((features_batches, labels_batches))
+        else:
+            return features_batches
 
-# make a prediction
-yhat = model.predict(test_X)
-test_X = test_X.reshape((test_X.shape[0], test_X.shape[2]))
-# invert scaling for forecast
-inv_yhat = concatenate((yhat, test_X[:, 1:]), axis=1)
-inv_yhat = scaler.inverse_transform(inv_yhat)
-inv_yhat = inv_yhat[:,0]
-# invert scaling for actual
-test_y = test_y.reshape((len(test_y), 1))
-inv_y = concatenate((test_y, test_X[:, 1:]), axis=1)
-inv_y = scaler.inverse_transform(inv_y)
-inv_y = inv_y[:,0]
-# calculate RMSE
-rmse = sqrt(mean_squared_error(inv_y, inv_yhat))
-print('Test RMSE: %.3f' % rmse)
+    windows = windows.flat_map(sub_to_batch)
+    return windows
 
+
+import tensorflow as tf
+import pandas as pd
+import numpy as np
+
+# 假设有一个包含多个特征和多标签的DataFrame
+df = pd.DataFrame({
+    'feature1': np.arange(0, 10),  # 第一个特征列
+    'feature2': np.arange(10, 20),  # 第二个特征列
+    'label1': np.arange(10, 20),  # 第一个标签列
+    # 'label2': np.arange(0, 10),  # 第二个标签列
+    # 更多特征和标签...
+})
+print(df['label1'])
+# 定义特征列名和标签列名
+feature_col_names = ['feature1', 'feature2']
+label_col_names = ['label1']
+
+# 将DataFrame转换为NumPy数组
+features = df[feature_col_names].values
+labels = df[label_col_names].values
+
+# 创建数据集
+dataset = tf.data.Dataset.from_tensor_slices((features, labels))
+
+# 如果需要对特征或标签做预处理（如归一化、标准化等），可以添加map操作
+# dataset = dataset.map(lambda feat, lab: (preprocess_features(feat), preprocess_labels(lab)))
+
+# 对于时间序列数据或其他需要窗口滑动的情况，可以使用window方法并应用batch
+# window_size 表示每个窗口包含的样本数
+window_size = 2
+shift = 1
+stride = 1
+
+
+def windowed_dataset(ds: tf.data.Dataset,
+                     window_size=window_size,
+                     shift=shift,
+                     stride=stride):
+    windows = ds.window(window_size,
+                        shift=shift,
+                        stride=stride,
+                        drop_remainder=True)
+
+    def sub_to_batch(sub):
+        return sub.batch(window_size, drop_remainder=True)
+
+    windows = windows.flat_map(sub_to_batch)
+    return windows
+
+
+# 应用窗口滑动
+dataset = windowed_dataset(dataset)
+
+# 设置批处理大小
+batch_size = 32
+# dataset = dataset.batch(batch_size)
+
+# 验证数据集形状
+for feat, lab in enumerate(dataset):
+    print('Features shape:',
+          feat.shape)  # (batch_size, window_size, num_features)
+    print('Labels shape:', lab.shape)  # (batch_size, window_size, num_labels)
