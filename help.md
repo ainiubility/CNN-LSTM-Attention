@@ -104,4 +104,8 @@ python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'
 
 ```
 
+# 最后测试,直接安装2.15.* 版本，可以支持gpu
 
+```pwsh
+ pip install tensorflow[and-cuda]==2.15.*
+ ```
