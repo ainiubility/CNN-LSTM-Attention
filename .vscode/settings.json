@@ -82,5 +82,6 @@
   "local-history.daysLimit": 7,
   "local-history.absolute": false,
   "local-history.enabled": 2,
-  "local-history.saveDelay": 30
+  "local-history.saveDelay": 30,
+  "indentColorizer.colorOnWhiteSpaceOnly": true
 }
