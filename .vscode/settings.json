@@ -86,5 +86,15 @@
   "indentColorizer.colorOnWhiteSpaceOnly": true,
   "frameIndentRainbow.ignoreErrorLanguages": ["python", "markdown"],
   "frameIndentRainbow.ignoreLinePatterns": ["/[ \t]* [*]/g", "/[ \t]+[/]{2}/g"],
-  "indentRainbow.ignoreErrorLanguages": ["python", "markdown"]
+  "indentRainbow.ignoreErrorLanguages": [
+    "python",
+    "markdown"
+  ],
+  "cSpell.words": [
+    "crossentropy",
+    "earlystop",
+    "Igareta",
+    "relu",
+    "tensorboard"
+  ]
 }
