@@ -47,7 +47,7 @@
   "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.enableSyncServer": true,
   "python.analysis.completeFunctionParens": true,
-  "python.analysis.autoImportCompletions": true,
+  "python.analysis.autoImportCompletions": false,
   "python.analysis.autoFormatStrings": true,
   "python.analysis.addImport.exactMatchOnly": true,
   "python.analysis.inlayHints.callArgumentNames": "all",
