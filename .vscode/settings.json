@@ -81,7 +81,7 @@
   "python.languageServer": "Pylance",
   "local-history.daysLimit": 7,
   "local-history.absolute": false,
-  "local-history.enabled": 2,
+  "local-history.enabled": 1,
   "local-history.saveDelay": 30,
   "indentColorizer.colorOnWhiteSpaceOnly": true,
   "frameIndentRainbow.ignoreErrorLanguages": ["python", "markdown"],

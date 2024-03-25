@@ -3,23 +3,12 @@ import pandas as pd
 import numpy as np
 
 
-def windowed_dataset(dataset: tf.data.Dataset,
-					window_size=5,
-					shift=1,
-					stride=1) -> tf.data.Dataset:
-    windows = dataset.window(window_size,
-							shift=shift,
-							stride=stride,
-							drop_remainder=True,
-							name='op_window')
+def windowed_dataset(dataset: tf.data.Dataset, window_size=5, shift=1, stride=1) -> tf.data.Dataset:
+    windows = dataset.window(window_size, shift=shift, stride=stride, drop_remainder=True, name='op_window')
 
     def sub_to_batch(features, labels) -> tf.data.Dataset:
-        features_batches = features.batch(window_size,
-                                          drop_remainder=True,
-                                          name='op_batch_1')
-        labels_batches = labels.batch(window_size,
-                                      drop_remainder=True,
-                                      name='op_batch_2')
+        features_batches = features.batch(window_size, drop_remainder=True, name='op_batch_1')
+        labels_batches = labels.batch(window_size, drop_remainder=True, name='op_batch_2')
 
         # 返回特征和标签的批处理结果作为元组
         return tf.data.Dataset.zip((features_batches, labels_batches))
@@ -60,20 +49,11 @@ shift = 1
 stride = 1
 
 
-def make_windowed_dataset(ds: tf.data.Dataset,
-                          window_size=window_size,
-                          shift=shift,
-                          stride=stride) -> tf.data.Dataset:
-    windows = ds.window(window_size,
-                        shift=shift,
-                        stride=stride,
-                        drop_remainder=True,
-                        name='op_window')
+def make_windowed_dataset(ds: tf.data.Dataset, window_size=window_size, shift=shift, stride=stride) -> tf.data.Dataset:
+    windows = ds.window(window_size, shift=shift, stride=stride, drop_remainder=True, name='op_window')
 
     def sub_to_batch(sub):
-        return sub.batch(window_size,
-                         drop_remainder=True,
-                         name='op_sub_to batch')
+        return sub.batch(window_size, drop_remainder=True, name='op_sub_to batch')
 
     windows = windows.flat_map(sub_to_batch)
     return windows
@@ -88,6 +68,5 @@ batch_size = 32
 
 # 验证数据集形状
 for feat, lab in dataset:
-    print('Features shape:',
-          feat.shape)  # (batch_size, window_size, num_features)
+    print('Features shape:', feat.shape)  # (batch_size, window_size, num_features)
     print('Labels shape:', lab.shape)  # (batch_size, window_size, num_labels)
