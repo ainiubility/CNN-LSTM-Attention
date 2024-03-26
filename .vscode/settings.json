@@ -96,5 +96,6 @@
     "Igareta",
     "relu",
     "tensorboard"
-  ]
+  ],
+  "python.analysis.extraCommitChars": true
 }
