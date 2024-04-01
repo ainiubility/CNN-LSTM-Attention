@@ -14,8 +14,8 @@ CREATE_STATS_CSV = False
 # fixing_sates = True
 
 
-def load_state():
-    if not CREATE_STATS_CSV and os.path.exists("./data/states.csv"):
+def load_state(read_cache: bool = True):
+    if read_cache and not CREATE_STATS_CSV and os.path.exists("./data/states.csv"):
         return pd.read_csv("./data/states.csv", parse_dates=["start", "end"], delimiter=',')
     dfstate = pd.read_csv("./data/states.txt")
     dfstate["start"] = dfstate.apply(lambda row: row["date"] + " " + row["start_time"], axis=1)
@@ -32,8 +32,8 @@ def load_state():
 
 
 # 定义读取数据函数
-def fix_data(inputDF: pd.DataFrame) -> pd.DataFrame:
-    _dfstate = load_state()
+def fix_data(inputDF: pd.DataFrame, read_cache: bool = True) -> pd.DataFrame:
+    _dfstate = load_state(read_cache)
     # 创建一个新的空列用于存储结果
     inputDF.insert(0, "label", categories["-"])
     # 对df1中的每一行遍历，并查找df2中符合条件的记录
@@ -55,14 +55,14 @@ creat_data_csv = False
 # fixing_data = True
 
 
-def load_fixed_data(file_path: str) -> pd.DataFrame:
+def load_fixed_data(file_path: str, read_cache: bool = True) -> pd.DataFrame:
 
     csv_path = file_path.replace('.xlsx', '.csv')
 
-    if not creat_data_csv and os.path.exists(csv_path):
-        return pd.read_csv(csv_path)
+    if read_cache and not creat_data_csv and os.path.exists(csv_path):
+        return pd.read_csv(csv_path, parse_dates=["时间", "轨迹时间"])
 
-    _data = fix_data(pd.read_excel(file_path, engine="openpyxl", parse_dates=["时间", "轨迹时间"]))
+    _data = fix_data(pd.read_excel(file_path, engine="openpyxl", parse_dates=["时间", "轨迹时间"]), read_cache)
     _data.to_csv(csv_path)
     return _data
 
