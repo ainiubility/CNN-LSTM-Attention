@@ -89,5 +89,10 @@
   "indentRainbow.ignoreErrorLanguages": ["python", "markdown"],
   "cSpell.words": ["crossentropy", "earlystop", "Igareta", "relu", "tensorboard"],
   "python.analysis.extraCommitChars": true,
-  "python.autoComplete.extraPaths": []
+  "python.autoComplete.extraPaths": [],
+  "python.analysis.extraPaths": [],
+  "editor.tokenColorCustomizations": {
+    "comments": "",
+    "textMateRules": []
+  }
 }
