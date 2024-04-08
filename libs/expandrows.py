@@ -4,11 +4,11 @@ import pandas as pd
 
 
 # 筛选数据，
-def expandRows(idx_list_list, windowsize=30) -> np.ndarray:
+def filter_with_indexes(idx_list_list, expanded_window_size=30) -> np.ndarray:
     """
     索引列表扩展 正负 windowsize大小，然后去重
     """
-    my_array = np.arange(-windowsize, windowsize + 1)
+    my_array = np.arange(-expanded_window_size, expanded_window_size + 1)
     new_array = idx_list_list.copy()
     for item in my_array:
         new_array += [element + item for element in idx_list_list]
@@ -17,13 +17,25 @@ def expandRows(idx_list_list, windowsize=30) -> np.ndarray:
     return ret
 
 
-def expand_dataframe(all_dataframe: pd.DataFrame, windowsize=30):
+def dataframe_filter(all_dataframe: pd.DataFrame, expanded_window_size=30):
     """
     索引列表扩展 正负 windowsize大小，然后去重
     """
     # print(origindata['label'] != 0)
     indices_list = all_dataframe.index[all_dataframe['label'] != 0].tolist()  # + _origindata.index[_origindata['label'] == '卸'].tolist()
-    indices_list = expandRows(indices_list)
+    indices_list = filter_with_indexes(indices_list, expanded_window_size)
+
+    # 或者使用.iloc基于位置索引（如果是整数索引）
+    return all_dataframe.iloc[indices_list]
+
+
+def dataframe_filter1(all_dataframe: pd.DataFrame, expanded_window_size=30):
+    """
+    索引列表扩展 正负 windowsize大小，然后去重
+    """
+    # print(origindata['label'] != 0)
+    indices_list = all_dataframe.index[all_dataframe['label'] != 0].tolist()  # + _origindata.index[_origindata['label'] == '卸'].tolist()
+    indices_list = filter_with_indexes(indices_list, expanded_window_size)
 
     # 或者使用.iloc基于位置索引（如果是整数索引）
     return all_dataframe.iloc[indices_list]
