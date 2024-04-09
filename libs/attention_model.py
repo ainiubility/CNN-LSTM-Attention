@@ -1,7 +1,7 @@
 ## 模型创建
+import tensorflow as tf
 import keras
 from keras import layers, models, optimizers
-from keras import backend as K
 
 SINGLE_ATTENTION_VECTOR = False
 
@@ -14,7 +14,7 @@ def attention_3d_block(inputs):
     # a = Reshape((input_dim, TIME_STEPS))(a) # this line is not useful. It's just to know which dimension is what.
     a = layers.Dense(input_dim, activation='softmax')(a)
     if SINGLE_ATTENTION_VECTOR:
-        a = layers.Lambda(lambda x: K.mean(x, axis=1), name='dim_reduction')(a)
+        a = layers.Lambda(lambda x: tf.reduce_mean(x, axis=1), name='dim_reduction')(a)
         a = layers.RepeatVector(input_dim)(a)
     a_probs = layers.Permute((1, 2), name='attention_vec')(a)  # 维数转置
 
