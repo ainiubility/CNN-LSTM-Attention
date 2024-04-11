@@ -56,7 +56,7 @@ def attention_model(time_steps: int, input_dims: int, lstm_units: int, output_di
         x = layers.Dense(units=1024, activation='relu', kernel_regularizer=regularizer, kernel_initializer='HeUniform', name='Dense_b_' + str(i + 2))(x)
     x = layers.Flatten()(x)
     # attention_mul = layers.Embedding(input_dims, output_dim)(attention_mul)
-    output = layers.Dense(output_dim, activation=tf.nn.tanh, name='output_')(x)
+    output = layers.Dense(output_dim, activation=tf.nn.softmax, name='output_')(x)
     model = keras.Model(inputs=[inputs], outputs=output)
     return model
 
