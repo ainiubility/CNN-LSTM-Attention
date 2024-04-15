@@ -6,7 +6,7 @@ from libs.config import *
 
 
 def get_callbacks(initial_learning_rate=0.01):
-    ckpt = keras.callbacks.ModelCheckpoint(model_save_path.replace('.hdf5', '.keras'), monitor='val_accuracy', verbose=1, save_best_only=False, save_weights_only=False, save_freq='epoch', mode='auto')
+    ckpt = keras.callbacks.ModelCheckpoint(model_save_path.replace('.hdf5', '.keras'), monitor='accuracy', verbose=1, save_best_only=False, save_weights_only=False, save_freq='epoch', mode='auto')
     #当模型训练不符合我们要求时停止训练，连续5个epoch验证集精度没有提高0.001%停
     earlystop = keras.callbacks.EarlyStopping(
         monitor='accuracy',  # 监控的量，val_loss, val_acc, loss, acc
@@ -68,5 +68,5 @@ def get_callbacks(initial_learning_rate=0.01):
     current_directory = pathlib.Path.cwd()
     print(f'tensorboard --logdir="{pathlib.Path.joinpath(current_directory,log_dir)}" --host=127.0.0.1')
 
-    callbacks = [ckpt, earlystop, lr, tensorboard, terminate, reduce_lr, csv_logger]  #terminate
+    callbacks = [ earlystop, lr, tensorboard, terminate, reduce_lr, csv_logger]  #terminate   ckpt,
     return callbacks

@@ -80,7 +80,7 @@ def compile_model(time_steps, feature_col_num, class_num, total_examples, batch_
     loss = keras.losses.CategoricalCrossentropy(from_logits=False)
     #评价指标
     # metrics=[keras.metrics.SparseCategoricalAccuracy(),loss]
-    metrics = ['accuracy', 'categorical_crossentropy']  #, 'categorical_crossentropy'
+    metrics = ['accuracy', 'mse', 'mae']  #, 'categorical_crossentropy'
 
     # 标签平滑损失函数
     # loss = 'mse'
