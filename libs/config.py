@@ -26,6 +26,6 @@ if not os.path.exists(log_dir):
 # print(class_num)
 time_steps = 3
 # batch_size = 20
-batch_size = 2
+batch_size = 200
 epochs = 5 + 200 * len(tf.config.list_physical_devices('GPU'))
 lr_decay_epochs = 1
