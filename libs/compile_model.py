@@ -78,6 +78,7 @@ def compile_model(time_steps, feature_col_num, class_num, total_examples, batch_
     optimizer = keras.optimizers.Adam(learning_rate=initial_learning_rate)
     #损失函数
     loss = keras.losses.CategoricalCrossentropy(from_logits=False)
+    loss = tf.nn.softmax_cross_entropy_with_logits
     #评价指标
     # metrics=[keras.metrics.SparseCategoricalAccuracy(),loss]
     metrics = [keras.metrics.Accuracy(), keras.metrics.mean_absolute_percentage_error, keras.metrics.categorical_accuracy, keras.metrics.LogCoshError()]  #, 'categorical_crossentropy'

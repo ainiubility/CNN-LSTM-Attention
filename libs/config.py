@@ -24,7 +24,7 @@ log_dir = os.path.join(output_folder, 'logs_{}'.format(datetime.datetime.now().s
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 # print(class_num)
-time_steps = 3
+time_steps = 20
 # batch_size = 20
 batch_size = 50
 epochs = 5 + 200 * len(tf.config.list_physical_devices('GPU'))
