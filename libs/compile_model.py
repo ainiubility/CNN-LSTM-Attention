@@ -28,7 +28,7 @@ def attention_3d_block(inputs):
     return output_attention_mul
 
 
-def attention_model(time_steps: int, input_dims: int, lstm_units: int, output_dim: int):  # -> Functional | Any
+def attention_model(time_steps: int, input_dims: int, lstm_units: int, output_dim: int) -> keras.Model:
     n_denseUnits = 1024
     n_denselayers = 3
 
@@ -53,7 +53,7 @@ def attention_model(time_steps: int, input_dims: int, lstm_units: int, output_di
     #     x = layers.Bidirectional(layers.LSTM(lstm_units, return_sequences=True, name='lstm' + str(i + 2)))(x)
     #     x = layers.Dropout(0.3, name='dorpot' + str(i + 2))(x)
     for i in range(3):
-        x = layers.Dense(units=1024, activation='relu', kernel_regularizer=regularizer, kernel_initializer='HeUniform', name='Dense_b_' + str(i + 2))(x)
+        x = layers.Dense(units=1024, activation=tf.nn.relu6, kernel_regularizer=regularizer, kernel_initializer='HeUniform', name='Dense_b_' + str(i + 2))(x)
     x = layers.Flatten()(x)
     # attention_mul = layers.Embedding(input_dims, output_dim)(attention_mul)
     output = layers.Dense(output_dim, activation=tf.nn.softmax, name='output_')(x)
@@ -67,7 +67,7 @@ def compile_model(time_steps, feature_col_num, class_num, total_examples, batch_
     model = attention_model(time_steps, feature_col_num, lstm_units, class_num)
 
     #学习率变化设置，使用指数衰减
-    train_steps_per_epoch = int(total_examples // batch_size)
+    # train_steps_per_epoch = int(total_examples // batch_size)
     initial_learning_rate = 0.01
     # lr_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate,
     #                                                              decay_steps=1*train_steps_per_epoch,
@@ -80,7 +80,7 @@ def compile_model(time_steps, feature_col_num, class_num, total_examples, batch_
     loss = keras.losses.CategoricalCrossentropy(from_logits=False)
     #评价指标
     # metrics=[keras.metrics.SparseCategoricalAccuracy(),loss]
-    metrics = ['accuracy', 'mse', 'mae']  #, 'categorical_crossentropy'
+    metrics = [keras.metrics.Accuracy(), keras.metrics.mean_absolute_percentage_error, keras.metrics.categorical_accuracy, keras.metrics.LogCoshError()]  #, 'categorical_crossentropy'
 
     # 标签平滑损失函数
     # loss = 'mse'
