@@ -1,7 +1,8 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 # Created by https://www.toptal.com/developers/gitignore/api/circuitpython,jupyternotebooks,python,pythonvanilla
 # Edit at https://www.toptal.com/developers/gitignore?templates=circuitpython,jupyternotebooks,python,pythonvanilla
-
+/timeseries/**/*tsv
+/timeseries/**/*csv
 ### CircuitPython ###
 .Trashes
 .metadata_never_index
