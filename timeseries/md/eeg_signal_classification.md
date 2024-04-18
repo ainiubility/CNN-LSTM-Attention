@@ -44,11 +44,11 @@ First, lets install our dependencies:
 
 
 ```python
-!pip install gdown -q
-!pip install sklearn -q
-!pip install pandas -q
-!pip install numpy -q
-!pip install matplotlib -q
+%pip install gdown -q
+%pip install sklearn -q
+%pip install pandas -q
+%pip install numpy -q
+%pip install matplotlib -q
 ```
 
 Next, lets download our dataset.

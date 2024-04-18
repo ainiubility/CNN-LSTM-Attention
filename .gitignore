@@ -3,6 +3,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=circuitpython,jupyternotebooks,python,pythonvanilla
 /timeseries/**/*tsv
 /timeseries/**/*csv
+**/*.keras
+timeseries/ipynb/best_model.keras
 ### CircuitPython ###
 .Trashes
 .metadata_never_index
@@ -227,3 +229,4 @@ pyrightconfig.json
 .history
 model_output
 logs
+
