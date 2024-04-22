@@ -38,7 +38,7 @@ def get_callbacks(initial_learning_rate=0.01):
     lr_schedule = LearningRateExponentialDecay(initial_learning_rate, lr_decay_epochs, 0.96)
     lr = keras.callbacks.LearningRateScheduler(lr_schedule, verbose=1)
 
-    Reduce = keras.callbacks.ReduceLROnPlateau(monitor='val_accuracy', factor=0.0001, patience=1, verbose=1, mode='auto', epsilon=0.0001, cooldown=0, min_lr=0)
+    Reduce = keras.callbacks.ReduceLROnPlateau(monitor='val_accuracy', factor=0.0001, patience=1, verbose=1, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
     #使用tensorboard
     #定义当loss出现nan或inf时停止训练的callback
     terminate = keras.callbacks.TerminateOnNaN()
@@ -70,5 +70,5 @@ def get_callbacks(initial_learning_rate=0.01):
     current_directory = pathlib.Path.cwd()
     print(f'tensorboard --logdir="{pathlib.Path.joinpath(current_directory,log_dir)}" --host=127.0.0.1')
 
-    callbacks = [earlystop, tensorboard, terminate, csv_logger]  #terminate   ckpt,
+    callbacks = [ tensorboard, terminate, csv_logger]  #terminate   ckpt,earlystop,
     return callbacks

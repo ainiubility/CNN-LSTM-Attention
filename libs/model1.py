@@ -46,7 +46,7 @@ def compile_model(time_steps: int, input_dims: int, lstm_units: int, output_dim:
         # layers.Flatten(),
         layers.Dense(output_dim, kernel_regularizer=regularizer, activation="softmax")
     ])
-    metrics = [keras.metrics.Accuracy(), keras.metrics.mean_absolute_percentage_error, keras.metrics.categorical_accuracy, keras.metrics.LogCoshError()]  #, 'categorical_crossentropy'
+    metrics = [keras.metrics.Accuracy(), keras.metrics.categorical_accuracy]  #, 'categorical_crossentropy'  keras.metrics.mean_absolute_percentage_error,
 
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss=keras.losses.CategoricalCrossentropy(), metrics=metrics)
     model.summary()
