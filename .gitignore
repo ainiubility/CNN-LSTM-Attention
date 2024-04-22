@@ -4,6 +4,7 @@
 /timeseries/**/*tsv
 /timeseries/**/*csv
 *.keras
+*.joblib
 timeseries/ipynb/*.keras
 ### CircuitPython ###
 .Trashes
