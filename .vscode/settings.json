@@ -94,5 +94,9 @@
   "editor.tokenColorCustomizations": {
     "comments": "",
     "textMateRules": []
+  },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "ainiubility",
+    "projectKey": "ainiubility_CNN-LSTM-Attention"
   }
 }
