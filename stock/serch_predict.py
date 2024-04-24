@@ -7,8 +7,7 @@ import numpy as np
 import pandas as pd
 
 import tensorflow as tf
-import keras
-from keras.models import Sequential
+from keras import Sequential
 from keras import layers
 from keras.optimizers import RMSprop
 from keras import backend as K

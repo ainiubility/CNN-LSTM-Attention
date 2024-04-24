@@ -96,7 +96,7 @@
     "textMateRules": []
   },
   "sonarlint.connectedMode.project": {
-    "connectionId": "ainiubility",
+    "connectionId": "mysonarCloud",
     "projectKey": "ainiubility_CNN-LSTM-Attention"
   }
 }

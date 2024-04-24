@@ -48,6 +48,6 @@ def compile_model(time_steps: int, input_dims: int, lstm_units: int, output_dim:
     ])
     metrics = [keras.metrics.Accuracy(), keras.metrics.categorical_accuracy]  #, 'categorical_crossentropy'  keras.metrics.mean_absolute_percentage_error,
 
-    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss=keras.losses.CategoricalCrossentropy(), metrics=metrics)
+    model.compile(optimizer=keras.optimizers.RMSprop(learning_rate=0.001), loss=keras.losses.CategoricalCrossentropy(), metrics=metrics)
     model.summary()
     return model

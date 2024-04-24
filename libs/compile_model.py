@@ -76,6 +76,7 @@ def compile_model(time_steps, feature_col_num, class_num, total_examples, batch_
     #优化算法
     optimizer = keras.optimizers.SGD(learning_rate=initial_learning_rate, momentum=0.95)
     optimizer = keras.optimizers.Adam(learning_rate=initial_learning_rate)
+    optimizer = keras.optimizers.RMSprop(learning_rate=initial_learning_rate)
     #损失函数
     loss = keras.losses.CategoricalCrossentropy(from_logits=False)
     loss = tf.nn.softmax_cross_entropy_with_logits
