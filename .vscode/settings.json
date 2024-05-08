@@ -51,7 +51,7 @@
   "python.analysis.autoFormatStrings": true,
   "python.analysis.addImport.exactMatchOnly": true,
   "python.analysis.inlayHints.callArgumentNames": "all",
-  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.typeCheckingMode": "off",
   "python.analysis.useLibraryCodeForTypes": true,
   "python.analysis.userFileIndexingLimit": 1000,
   "dotnet-interactive.kernelTransportArgs": [
