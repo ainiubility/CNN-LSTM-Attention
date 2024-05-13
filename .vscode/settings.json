@@ -98,5 +98,8 @@
   "sonarlint.connectedMode.project": {
     "connectionId": "mysonarCloud",
     "projectKey": "ainiubility_CNN-LSTM-Attention"
-  }
+  },
+  "conventionalCommits.scopes": [
+    "VechicleTrain"
+  ]
 }
