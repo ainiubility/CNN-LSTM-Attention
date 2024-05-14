@@ -167,5 +167,5 @@ def get_callbacks(initial_learning_rate=0.01):
     current_directory = pathlib.Path.cwd()
     print(f'tensorboard --logdir="{pathlib.Path.joinpath(current_directory,log_dir)}" --host=127.0.0.1')
 
-    callbacks = [tensorboard, terminate, csv_logger, earlystop]  #terminate   ckpt,earlystop,
+    callbacks = [terminate,  earlystop]  #terminate   ckpt,earlystop,csv_logger,tensorboard,
     return callbacks
